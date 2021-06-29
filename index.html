@@ -2,98 +2,136 @@
 <html lang="pt-br">
 
     <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>dev.nar0n%</title>
+        <title>nar0n | dev.finance</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+        <link rel="manifest" href="assets/favicon/site.webmanifest">
+        <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
     </head>
 
     <body>
-        <header>
-            <img src="./assets/logo.svg" alt="Logo Dev Finance">
-        </header>
-        
-        <main class="container">
-            <section id="balance">
-                <h2 class="sr-only">Balanço</h2>
-                <div class="card">
-                    <h3>
-                        <span>Entradas</span>
-                        <img src="./assets/income.svg" alt="Image de entradas">
-                    </h3>
-                    <p id="incomeDisplay">R$ 0,00</p>
+        <header class="d-flex flex-column align-itens-center justify-content-center bg-primary">
+            <nav class="navbar navbar-light py-4">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h1 mx-auto"> 
+                        <img src="./assets/logo.svg" alt="Logo Dev Finance" class="img-fluid"> 
+                    </span>
                 </div>
-                <div class="card">
-                    <h3>
-                        <span>Saídas</span>
-                        <img src="./assets/expense.svg" alt="Image de entradas">
-                    </h3>
-                    <p id="expenseDisplay">R$ 0,00</p>
-                </div>
-                <div class="card total">
-                    <h3>
-                        <span>Total</span>
-                        <img src="./assets/total.svg" alt="Image de entradas">
-                    </h3>
-                    <p id="totalDisplay">R$ 0,00</p>
+            </nav>
+            <section class="container" style="margin-bottom: -2rem">
+                <div class="row align-itens-center justify-content-center p-2">
+                    <div class="card col-xl-3 m-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <h6 class="card-title col-10 mb-0">Entradas</h6>
+                                <img src="./assets/income.svg" alt="Image de entradas" class="img-fluid col-2">
+                            </div>
+                            <h3 class="card-text my-2" id="incomeDisplay">R$ 0,00</h3>
+                        </div>
+                    </div>
+
+                    <div class="card col-xl-3 m-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <h6 class="card-title col-10 mb-0">Saídas</h6>
+                                <img src="./assets/expense.svg" alt="Image de entradas" class="img-fluid col-2">
+                            </div>
+                            <h3 class="card-text my-2" id="expenseDisplay">R$ 0,00</h3>
+                        </div>
+                    </div>
+
+                    <div class="card col-xl-3 m-2 bg-success bg-gradient">
+                        <div class="card-body">
+                            <div class="row">
+                                <h6 class="card-title col-10 mb-0">Total</h6>
+                                <img src="./assets/total.svg" alt="Image de entradas" class="img-fluid col-2">
+                            </div>
+                            <h3 class="card-text my-2" id="totalDisplay">R$ 0,00</h3>
+                        </div>
+                    </div>
                 </div>
             </section>
+        </header>
+        
+        <main class="container p-5">
             <section id="transaction">
-                <h2 class="sr-only">Transações</h2>
+                <button 
+                    type="button" 
+                    class="btn btn-primary"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#newTransaction"
+                >
+                    Nova transação
+                </button>
 
-                <a href="#" onclick="Modal.openModal()" class="button new">+ Nova transação</a>
+                <div class="modal fade" id="newTransaction" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nova transação</h5>
+                            </div>
 
-                <table id="data-table">
-                    <thead>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="description" class="col-form-label">Descrição:</label>
+                                        <textarea class="form-control" id="description" required></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="col-form-label" for="date">Data:</label>
+                                        <input type="date" class="form-control" id="date" name="date">
+                                    </div>
+
+                                    <label class="col-form-label" for="amount">Valor:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">R$</span>
+                                        <span class="input-group-text">0,00</span>
+                                        <input type="number" class="form-control" id="amount" required>
+                                        <small class="text-muted px-1">Use o sinal - (negativo) para despesas e , (vírgula) para casas decimais</small>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-success" onclick="Form.submit(event)" data-bs-dismiss="modal">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-striped mt-4">
+                    <thead class="table-light">
                         <tr>
-                            <th>Decrição</th>
-                            <th>Valor</th>
-                            <th>Data</th>
-                            <th></th>
+                            <th scope="col" colspan="2">Decrição</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Data</th>
+                            <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="data-table">
                     </tbody>
                 </table>
             </section>
         </main>
 
-        <div class="modal-overlay">
-            <div class="modal">
-                <div class="modal-content">
-                    <div id="form">
-                        <h2>Nova transação</h2>
-                        <form action="" method="" onsubmit="Form.submit(event)">
-                            <div class="input-group">
-                                <label class="sr-only" for="description">Descrição</label>
-                                <input type="text" id="description" name="description" placeholder="Descrição">
-                            </div>
-                            <div class="input-group">
-                                <label class="sr-only" for="amount">Valor</label>
-                                <input type="number" step="0.01" id="amount" name="amount" placeholder="0,00">
-                                <small class="help">Use o sinal - (negativo) para despesas e , (vírgula) para casas decimais</small>
-                            </div>
-                            <div class="input-group">
-                                <label class="sr-only" for="date">Data</label>
-                                <input type="date" id="date" name="date">
-                            </div>
-                            <div class="input-group actions">
-                                <a href="" class="button cancel">Cancelar</a>
-                                <button>Salvar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>dev.nar0n%</p>
+        <footer class="bg-primary p-5 text-center">
+            <p>Desenvolvido com &hearts; por <a href="https://github.com/nar0n-dev/" class="link-light" target="_blank">nar0n</a></p>
         </footer>
+
         <script src="./scripts.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body>
 
 </html>
